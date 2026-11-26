@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Internet Is Watching You</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&family=Space+Grotesk:wght@300;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-mode="neutral">
+<div id="grain" aria-hidden="true"></div>
+<div id="cur" aria-hidden="true"></div>
+<div id="hud" class="mono" aria-hidden="true"><span id="hudScene"></span><span id="hudCount"></span></div>
+
+<main id="stage">
+
+<!-- SCENE 1: THE ENTRY -->
+<section id="s1" class="scene" aria-label="Scene 1: The entry">
+  <p class="mono sys">SYSTEM 001 / CONNECTION ESTABLISHED</p>
+  <div class="entry">
+    <p id="t1" class="big"></p>
+    <p id="t2" class="big dim"></p>
+    <a href="#" id="begin" class="prompt mono" role="button">BEGIN</a>
+    <span id="beginMsg" class="mono tip" aria-live="polite"></span>
+  </div>
+</section>
+
+<!-- SCENE 2: THE ROOM -->
+<section id="s2" class="scene" aria-label="Scene 2: The room. Five objects can be explored.">
+  <p class="mono sys">ROOM / 5 OBJECTS / EXPLORE</p>
+  <button class="obj" id="o1" data-k="circle" data-hint="OBSERVATION AVAILABLE" style="left:14%;top:30%" aria-label="Circle object"><svg viewBox="0 0 60 60"><circle cx="30" cy="30" r="20"/></svg></button>
+  <button class="obj" id="o2" data-k="square" data-hint="OBJECT DETECTED" style="left:62%;top:18%" aria-label="Distorted square object"><svg viewBox="0 0 60 60"><polygon points="8,12 50,6 54,48 14,54"/></svg></button>
+  <button class="obj" id="o3" data-k="folder" data-hint="FILE UNKNOWN" style="left:38%;top:62%" aria-label="Folder object"><svg viewBox="0 0 70 56"><path d="M6 10h20l6 8h32v32H6z"/></svg></button>
+  <button class="obj" id="o4" data-k="line" data-hint="FRAGMENT 003" style="left:70%;top:72%" aria-label="Horizontal line object"><svg viewBox="0 0 120 12"><path d="M2 6h40M50 6h26M84 6h8M100 6h18"/></svg></button>
+  <button class="obj" id="o5" data-k="question" data-hint="ARE YOU SURE?" style="left:22%;top:78%" aria-label="Question mark object"><span class="q">?</span></button>
+  <div id="lbl" class="mono" aria-hidden="true"></div>
+  <div id="reveal" role="dialog" aria-modal="false" aria-labelledby="rt" hidden>
+    <div class="bar mono"><span id="rt"></span><button id="rclose">CLOSE [ESC]</button></div>
+    <p id="rp"></p>
+  </div>
+  <p id="next2" class="mono nextbox" hidden>YOU HAVE SEEN ENOUGH. <a href="#" class="prompt on" role="button" data-go="3">CONTINUE</a></p>
+</section>
+
+<!-- SCENE 3: THE CHOICE -->
+<section id="s3" class="scene" aria-label="Scene 3: The choice. Drag a statement to the centre, or focus it and press Enter.">
+  <p class="mono sys">CHOOSE / DRAG TO THE CENTRE</p>
+  <button class="stmt" id="stA" data-c="FREEDOM">INFORMATION IS FREEDOM.</button>
+  <button class="stmt" id="stB" data-c="CONTROL">INFORMATION IS CONTROL.</button>
+  <div id="zone" aria-hidden="true"><span class="mono">DROP</span></div>
+  <p id="chMsg" class="mono nextbox" hidden aria-live="polite"></p>
+  <p id="chNext" class="mono nextbox low" hidden><a href="#" id="reconsider" class="prompt on" role="button">RECONSIDER</a> <a href="#" class="prompt on" role="button" data-go="4">CONTINUE</a></p>
+</section>
+
+<!-- SCENE 4: THE PATTERN -->
+<section id="s4" class="scene" aria-label="Scene 4: The pattern. Move the pointer or tap to disturb the particles.">
+  <canvas id="cv"></canvas>
+  <p class="mono sys">PATTERN / MOVE / CLICK</p>
+  <p class="frag mono" style="left:6%;bottom:12%">your hesitation is a signal</p>
+  <p class="frag mono" style="right:6%;top:14%">you move like someone who is looking for something</p>
+  <p class="frag mono" style="left:40%;top:46%">the centre is where you start</p>
+  <p id="pmsg" class="mono" aria-live="polite"></p>
+  <p id="next4" class="mono nextbox" hidden>PATTERN RECORDED. <a href="#" class="prompt on" role="button" data-go="5">CONTINUE</a></p>
+</section>
+
+<!-- SCENE 5: THE PROFILE -->
+<section id="s5" class="scene" aria-label="Scene 5: The profile">
+  <p id="repLabel" class="mono sys"></p>
+  <div id="report"></div>
+  <p id="next5" class="mono nextbox" hidden><a href="#" class="prompt on" role="button" data-go="6">CONTINUE</a></p>
+</section>
+
+<!-- SCENE 6: THE REVELATION -->
+<section id="s6" class="scene" aria-label="Scene 6: The revelation">
+  <div id="rev"></div>
+  <div id="tail" hidden>
+    <a href="#" id="what" class="prompt on mono" role="button" aria-expanded="false">WHAT DID WE ACTUALLY COLLECT?</a>
+    <div id="explain" hidden>
+      <p><b>Tracked, in this tab only:</b> which objects you hovered, clicked and revisited; their order and how long each stayed open; which statement you chose, how long it took and whether you changed it; how many times you clicked in the particle field; sampled movement counts (a tally, not coordinates); how long you stayed still; whether you reached the edges or centre of the screen; hidden fragments found; time spent in each scene.</p>
+      <p><b>How observations were made:</b> each sentence on the report is an if-statement over those numbers. If the number is zero, the sentence does not appear.</p>
+      <p><b>Classification:</b> REVISITOR if you returned to an object or reopened your choice. Otherwise EXPLORER if you opened 4 or more objects. Otherwise OBSERVER. It is a game, not a personality test.</p>
+      <p><b>Not collected:</b> your name, photos, location, cursor coordinates, device details or anything typed. Nothing was sent anywhere, no cookies or storage were used, and it all disappears when this tab closes.</p>
+    </div>
+    <p class="end"><button id="erase" class="mono">ERASE SESSION</button><button id="again" class="mono">EXPERIENCE AGAIN</button></p>
+  </div>
+</section>
+
+</main>
+<script src="script.js"></script>
+</body>
+</html>
